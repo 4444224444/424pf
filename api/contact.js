@@ -1,7 +1,5 @@
-// api/contact.cjs
-
+// api/contact.js
 module.exports = (req, res) => {
-  // 순수 Node 응답 방식 (Express 아님)
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json");
   res.end(
