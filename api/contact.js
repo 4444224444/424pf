@@ -1,8 +1,9 @@
 // api/contact.js
-module.exports = (req, res) => {
+
+export default function handler(req, res) {
   return res.status(200).json({
     ok: true,
     method: req.method,
     msg: "contact function alive",
   });
-};
+}
