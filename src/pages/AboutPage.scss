@@ -1,0 +1,480 @@
+/* =========================================
+   LAYOUT & COMMON
+========================================= */
+
+.about-page {
+  max-width: 100%;
+  margin-left: clamp(1.5rem, 4vw, 8rem);
+  margin-right: clamp(1.5rem, 4vw, 8rem);
+  color: var(--text-body);
+}
+
+.about-page__section {
+  & + & {
+    margin-top: 48px;
+  }
+
+  /* 스크롤 등장 초기 상태 */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* 화면에 들어온 섹션 */
+.about-page__section--visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.about-page__section-title,
+.about-page__sub-title {
+  color: var(--text-title);
+  font-size: clamp(1.6rem, 2vw, 2rem);
+}
+
+/* ================== ABOUT HERO ================== */
+
+.about-hero {
+  padding: 5rem 0;
+  margin-bottom: 10rem;
+  color: var(--text-title);
+  text-transform: uppercase;
+  text-align: center;
+
+  /* 위치 컨트롤용 변수들 */
+
+  /* I AM — 왼쪽 → 오른쪽 */
+  --iam-start-x: -20rem;
+  --iam-end-x: -5rem;
+
+  /* CREATING — I AM에게 밀림 */
+  --creating-start-x: -19rem;
+  --creating-end-x: -6rem;
+
+  /* ROLES — 오른쪽 → 왼쪽 (오른쪽 바깥에서 들어옴) */
+  --roles-start-x: 26rem;
+  --roles-end-x: 13rem;
+
+  /* WEB — 오른쪽 → 왼쪽 (roles가 들어오면서 왼쪽으로 밀림) */
+  --web-start-x: 25rem;
+  --web-end-x: 12rem;
+}
+
+/* 줄 배치 */
+.about-page .about-hero__row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.about-hero__row--first,
+.about-hero__row--big,
+.about-hero__row--last {
+  line-height: 0.9;
+}
+
+/* 폰트 사이즈 */
+.about-hero__iam {
+  font-size: clamp(2.4rem, 3vw + 1rem, 4rem);
+  white-space: nowrap;
+}
+
+.about-hero__creating {
+  font-size: clamp(3.2rem, 5vw + 1rem, 7rem);
+  margin-left: 1.5rem;
+}
+
+.about-hero__big-1,
+.about-hero__big-2 {
+  white-space: nowrap;
+}
+
+.about-hero__big-1,
+.about-hero__big-2,
+.about-hero__web {
+  font-size: clamp(3.2rem, 5vw + 1rem, 7rem);
+}
+
+/* WEB 옆 roles */
+.about-hero__roles {
+  display: inline-flex;
+  flex-direction: column;
+  font-size: 2rem;
+  text-align: left;
+  letter-spacing: -0.1rem;
+  transform: translateY(0.25rem);
+}
+
+/* INITIAL STATES */
+
+.about-hero__iam {
+  display: inline-block;
+  opacity: 0;
+  transform: translateX(var(--iam-start-x));
+}
+
+.about-hero__creating {
+  display: inline-block;
+  transform: translateX(var(--creating-start-x));
+}
+
+.about-hero__roles {
+  display: inline-flex;
+  opacity: 0;
+  transform: translateX(var(--roles-start-x)) translateY(0.25rem);
+}
+
+.about-hero__web {
+  display: inline-block;
+  transform: translateX(var(--web-start-x));
+}
+
+/* ANIMATION TRIGGER */
+
+.about-hero--play .about-hero__iam {
+  animation: hero-iam-in 0.8s ease-out forwards;
+}
+
+.about-hero--play .about-hero__creating {
+  animation: hero-creating-shift 0.8s ease-out forwards;
+}
+
+.about-hero--play .about-hero__roles {
+  animation: hero-roles-in 0.8s ease-out forwards;
+}
+
+.about-hero--play .about-hero__web {
+  animation: hero-web-shift 0.8s ease-out forwards;
+}
+
+/* KEYFRAMES */
+
+@keyframes hero-iam-in {
+  0% {
+    opacity: 0;
+    transform: translateX(var(--iam-start-x));
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(var(--iam-end-x));
+  }
+}
+
+@keyframes hero-creating-shift {
+  0% {
+    transform: translateX(var(--creating-start-x));
+  }
+  100% {
+    transform: translateX(var(--creating-end-x));
+  }
+}
+
+@keyframes hero-roles-in {
+  0% {
+    opacity: 0;
+    transform: translateX(var(--roles-start-x)) translateY(0.25rem);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(var(--roles-end-x)) translateY(0.25rem);
+  }
+}
+
+@keyframes hero-web-shift {
+  0% {
+    transform: translateX(var(--web-start-x));
+  }
+  100% {
+    transform: translateX(var(--web-end-x));
+  }
+}
+
+/* =========================================
+   INFO / PROFILE
+========================================= */
+
+.about-page__info-row {
+  display: flex;
+  gap: 32px;
+  margin: 2rem 5rem 10rem 5rem;
+}
+
+.about-page__photo-placeholder {
+  width: 500px;
+  height: 500px;
+  background: var(--border-subtle);
+}
+
+.about-page__info-text {
+  flex: 1;
+  margin-top: 2rem;
+  margin-left: 2rem;
+}
+
+/* Basic Info Table */
+.about-page__basic-table {
+  margin-bottom: 0.2rem;
+
+  dt {
+    float: left;
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    color: var(--text-body);
+  }
+
+  dd {
+    margin-left: 7rem;
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    color: var(--text-body);
+  }
+}
+
+.about-page__basic-row + .about-page__basic-row {
+  margin-top: 0.8rem;
+}
+
+.about-page__intro {
+  font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+  white-space: pre-line;
+  color: var(--text-body);
+  font-family: "Pretendard";
+}
+
+/* 2열 레이아웃 (GET IN TOUCH / EDU, AWARDS / WORKS) */
+.about-page__section--split {
+  display: flex;
+  gap: 7rem;
+}
+
+.about-page__col {
+  flex: 1;
+}
+
+/* GET IN TOUCH 리스트 */
+.about-page__list {
+  dt {
+    margin-left: 5rem;
+    margin-right: 5rem;
+    float: left;
+    width: 120px;
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    color: var(--text-body);
+  }
+
+  dd {
+    font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+    color: var(--text-body);
+  }
+}
+
+.about-page__list-row + .about-page__list-row {
+  margin-top: 0.8rem;
+}
+
+/* 연혁 타임라인 */
+.about-page__timeline {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.about-page__timeline-row {
+  display: grid;
+  grid-template-columns: 48px 32px 1fr;
+  column-gap: 3.5rem;
+  margin-left: 5rem;
+  font-size: clamp(1.2rem, 1.5vw, 1.5rem);
+  align-items: baseline;
+
+  & + & {
+    margin-top: 0.8rem;
+  }
+}
+
+.about-page__timeline-year {
+  color: var(--text-body);
+}
+
+.about-page__timeline-month {
+  color: var(--text-body);
+}
+
+.about-page__timeline-text {
+  color: var(--text-body);
+}
+
+/* =========================================
+   SKILLS
+========================================= */
+
+.about-page__section-title {
+  margin-top: 10rem;
+}
+
+.about-page__skill-tabs {
+  display: flex;
+  gap: 1.2rem;
+  margin: 8px 0 16px;
+}
+
+.about-page__skill-tab {
+  border: none;
+  background: transparent;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  padding: 4px 0;
+  color: var(--text-body);
+  cursor: pointer;
+  position: relative;
+}
+
+.about-page__skill-tab--active {
+  color: var(--text-title);
+}
+
+.about-page__skill-tab--active::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 1px;
+  background: var(--text-title);
+}
+
+.about-page__skill-grid {
+  margin-top: 8px;
+  margin-bottom: 10rem;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.about-page__skill-card {
+  position: relative;
+  background: var(--border-subtle);
+  border-radius: 6px;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  font-size: 11px;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  cursor: default;
+  transition: background 0.2s ease, transform 0.2s ease;
+  font-family: "Pretendard";
+}
+
+/* 이미지 */
+.about-page__skill-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* 호버 시 보이는 콘텐츠 */
+.about-page__skill-content {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  margin-top: 0.1rem;
+  font-size: 1rem;
+  text-transform: uppercase;
+  letter-spacing: -0.01rem;
+  color: #ffffff;
+  font-family: "Pretendard";
+}
+
+.about-page__skill-category {
+  margin-top: 0.3rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+}
+
+/* 설명 텍스트 */
+.about-page__skill-desc {
+  margin-top: 1rem;
+  padding: 0 1rem;
+  font-size: 0.85rem;
+  font-weight: 200;
+  line-height: 1.4;
+  color: #ffffff;
+}
+
+/* 오버레이 + 호버 효과 */
+.about-page__skill-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0);
+  transition: background 0.2s ease;
+}
+
+.about-page__skill-card:hover {
+  background: var(--border-subtle);
+  filter: brightness(1.05);
+  transform: translateY(-2px);
+}
+
+.about-page__skill-card:hover::after {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.about-page__skill-card:hover .about-page__skill-content {
+  opacity: 1;
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 768px) {
+  .about-hero {
+    padding: 3.75rem 0 2.5rem;
+    margin-bottom: 5rem;
+  }
+
+  .about-page__info-row,
+  .about-page__section--split {
+    flex-direction: column;
+    margin: 2rem 0 4rem 0;
+  }
+
+  .about-page__photo-placeholder {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1 / 1;
+  }
+
+  .about-page__info-text {
+    margin-left: 0;
+  }
+
+  .about-page__skill-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .about-page__skill-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .about-page__list dt {
+    margin-left: 0;
+  }
+
+  .about-page__timeline-row {
+    margin-left: 0;
+    column-gap: 1.5rem;
+  }
+}

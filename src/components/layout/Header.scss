@@ -1,0 +1,267 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2rem 4rem;
+  background-color: transparent;
+  font-size: 1.8rem;
+  font-weight: 300;
+}
+
+.header__logo {
+  text-decoration: none;
+  color: var(--text-header);
+}
+
+.header__right {
+  display: flex;
+  align-items: center;
+  gap: 8rem;
+}
+
+.header__nav {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+.header__nav-link {
+  text-decoration: none;
+  color: var(--text-header);
+}
+
+.header__btn:hover {
+  opacity: 1;
+}
+
+.header__controls {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+}
+
+/* ✅ 토글/백 영역: 항상 같은 너비 유지 (레이아웃 안 밀리게 하는 핵심) */
+.header__primary {
+  width: 120px;               /* 마음에 들게 숫자 바꾸면 됨 */
+  display: flex;
+  justify-content: center;
+}
+
+/* 공통 버튼 스타일 (BACK, L.M, GRID/LIST 안 버튼 전부) */
+.header__btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  font: inherit;
+  color: var(--text-header);
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+.header__btn:hover {
+  opacity: 1;
+}
+
+/* L.M / D.M 텍스트 버튼 */
+.header__view-toggle {
+  font-size: 0.9rem;
+}
+
+/* 🔹 GRID / LIST 토글 캡슐 전체 */
+.header__view-toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 32px;
+
+  border-radius: 999px;
+  border: 1px solid var(--text-header);
+  background: transparent;
+  overflow: hidden;
+  font-size: 0.9rem; /* 헤더 베이스랑 크게 안 어울리게 조정 */
+}
+
+/* 🔹 슬라이드 되는 동그란 배경 */
+.header__view-toggle::before {
+  content: "";
+  position: absolute;
+  width: calc(50% - 0px);
+  height: calc(100% - 0px);
+
+  border-radius: 999px;
+  background-color: var(--text-header);
+
+  transform: translateX(0);            /* 기본: GRID 쪽 */
+  transition: transform 0.22s ease-out;
+}
+
+/* LIST 모드일 때 오른쪽으로 스르륵 이동 */
+.header__view-toggle.header__view-toggle--list::before {
+  transform: translateX(100%);
+}
+
+/* 🔹 토글 안쪽 텍스트 버튼 두 개 */
+.header__view-option {
+  position: relative;
+  z-index: 1;           /* ::before 위로 올라오게 */
+  flex: 1 0 0;
+
+  padding: 0;
+  min-width: 0;
+  text-align: center;
+
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  font: inherit;
+  font-size: 0.9rem;
+
+  color: var(--text-header);
+  opacity: 0.6;
+  transition: opacity 0.15s ease, color 0.15s ease;
+}
+
+/* 선택된 GRID/LIST 쪽 텍스트 */
+.header__view-option--active {
+  color: var(--bg-page);    /* 다크/라이트 모두 페이지 배경색으로 */
+  opacity: 1;
+}
+
+
+
+/* ===========================
+   12col 레이아웃 느낌 맞춘 반응형
+   =========================== */
+
+/* 1200px 이하 – 데스크탑 살짝 줄어드는 구간 */
+@media (max-width: 1200px) {
+  .header {
+    padding: 1.8rem 3rem;
+    font-size: 1.6rem;
+  }
+
+  .header__right {
+    gap: 5rem;
+  }
+
+  .header__nav {
+    gap: 2.5rem;
+  }
+}
+
+/* 960px 이하 – 태블릿 가로/작은 노트북 구간 */
+@media (max-width: 960px) {
+  .header {
+    padding: 1.5rem 2rem;
+    font-size: 1.4rem;
+  }
+
+  .header__right {
+    gap: 3rem;
+  }
+
+  .header__nav {
+    gap: 2rem;
+    font-size: 1.4rem;
+  }
+
+  .header__primary {
+    width: 110px;
+  }
+
+  .header__view-toggle {
+    height: 30px;
+    font-size: 0.85rem;
+  }
+
+  .header__view-option {
+    font-size: 0.85rem;
+  }
+}
+
+/* 720px 이하 – 모바일/태블릿 세로 구간 */
+@media (max-width: 720px) {
+  .header {
+    padding: 1.2rem 1.5rem;
+    font-size: 1.2rem;
+    flex-wrap: wrap;           /* 로고 + 오른쪽 영역 위아래로 쪼개지게 */
+    row-gap: 1rem;
+  }
+
+  .header__right {
+    width: 100%;
+    justify-content: space-between;
+    gap: 1.5rem;
+  }
+
+  .header__nav {
+    gap: 1.5rem;
+    font-size: 1.1rem;
+  }
+
+  .header__primary {
+    width: 100px;
+  }
+
+  .header__view-toggle {
+    height: 28px;
+    font-size: 0.8rem;
+  }
+
+  .header__view-option {
+    font-size: 0.8rem;
+  }
+
+  .header__controls {
+    gap: 1.5rem;
+  }
+}
+
+/* 480px 이하 – 작은 모바일 */
+@media (max-width: 480px) {
+  .header {
+    padding: 1rem 1.2rem;
+    font-size: 1.05rem;
+  }
+
+  .header__right {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.8rem;
+  }
+
+  .header__nav {
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+
+  .header__primary {
+    width: 100%;
+    max-width: 150px;
+  }
+
+  .header__controls {
+    width: 100%;
+    justify-content: flex-end;
+    gap: 1rem;
+  }
+
+  .header__view-toggle {
+    width: 100%;
+  }
+
+  .header__mode {
+    font-size: 0.8rem;
+  }
+}
+
+
+
+

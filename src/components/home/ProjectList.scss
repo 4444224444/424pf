@@ -1,0 +1,81 @@
+
+/* 한 줄 (번호 / 날짜 / 제목 / 사용기술) */
+.project-row {
+  position: relative; /* ⭐ 밑줄 전체폭을 위한 핵심 */
+  display: grid;
+  grid-template-columns: 3.5rem 8rem minmax(0, 1fr) 14rem;
+  column-gap: 2rem; /* 기존 2rem → 3rem */
+  padding: 1.5rem 0;
+  font-size: 0.9rem;
+  color: var(--text-body);
+  background: transparent;
+  cursor: default;
+  align-items: end;
+}
+
+
+.project-row::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;    
+  bottom: 0;
+  height: 2px;
+  background-color: var(--border-subtle);
+}
+
+/* 번호 */
+.project-row__index {
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+/* 날짜 */
+.project-row__date {
+  opacity: 0.75;
+}
+
+/* 제목 */
+.project-row__title {
+  font-size: 1.8rem;
+  color: var(--text-title);
+}
+
+/* 사용 기술 */
+.project-row__stack {
+  justify-self: flex-end;
+
+}
+
+/* hover 시: 제목만 강조 */
+.project-row:hover .project-row__title {
+  text-decoration: underline;
+  color: var(--text-title);
+}
+
+/* 반응형 */
+@media (max-width: 900px) {
+  .project-row {
+    grid-template-columns: 3rem 7rem minmax(0, 1fr);
+    column-gap: 2rem; /* 줄여서 모바일 정리 */
+  }
+
+  .project-row__stack {
+    display: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .project-row {
+    grid-template-columns: 3rem minmax(0, 1fr);
+    padding: 1rem 0;
+  }
+
+  .project-row__date {
+    display: none;
+  }
+
+  .project-row__title {
+    font-size: 1.15rem;
+  }
+}

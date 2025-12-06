@@ -1,0 +1,241 @@
+/* =========================================
+   CONTACT PAGE
+========================================= */
+
+.contact-page {
+  height: calc(100vh - var(--header-height)); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden; /* 세로 스크롤 완전 제거 */
+}
+
+/* 페이지 진입 시 아래에서 위로 스르륵 */
+.contact-page--enter {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: contact-page-in 0.6s ease-out forwards;
+}
+
+@keyframes contact-page-in {
+  0% {
+    opacity: 0;
+    transform: translateY(40px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.contact-page__inner {
+  width: 100%;
+  max-width: 1200px;  /* 전체 폭 줄임 */
+  margin-top: 5rem;
+  padding: 0 2rem;   /* 좌우 여백만 */
+}
+
+/* 2컬럼: 왼쪽 인포 / 오른쪽 폼 */
+.contact-page__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1.3fr);
+  gap: 10rem; /* 살짝 줄임 */
+}
+
+/* =========================================
+   LEFT SIDE
+========================================= */
+
+.contact-page__left {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.contact-page__header {
+  margin-bottom: 2.5rem;
+}
+
+/* Drop Me a Line → 타이틀 컬러 */
+.contact-page__title {
+  font-size: 3rem;
+  margin: 0 0 1.2rem;
+  color: var(--text-title);
+}
+
+/* 설명 → 바디 컬러 */
+.contact-page__description {
+  margin: 0;
+  font-size: 1.05rem;
+  line-height: 1.7;
+  color: var(--text-body);
+}
+
+/* Info list (Email / Instagram / Resume) */
+.contact-page__info-list {
+  margin: 2.5rem 0 0;
+  padding: 0;
+}
+
+.contact-page__info-row {
+  display: flex;
+  align-items: baseline;
+  gap: 1.5rem;
+  padding: 0.3rem 0;
+}
+
+.contact-page__info-label {
+  min-width: 80px;
+  font-size: 0.95rem;
+  color: var(--text-title);
+}
+
+.contact-page__info-value {
+  font-size: 0.95rem;
+  color: var(--text-body);
+}
+
+.contact-page__info-value a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+
+.contact-page__info-value a:hover {
+  color: var(--text-title);
+  border-color: var(--text-title);
+}
+
+/* =========================================
+   RIGHT SIDE (FORM)
+========================================= */
+
+.contact-page__right {
+  display: flex;
+  align-items: center;
+}
+
+/* 폼 전체 박스 – 완전 플랫 */
+.contact-page__form {
+  width: 100%;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 0;
+}
+
+/* 상단 두 칸 (name / e-mail) */
+.contact-page__row {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+}
+
+.contact-page__row--two {
+  margin-bottom: 1.5rem;
+}
+
+/* 공통 필드 */
+.contact-page__field {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-bottom: 1rem;
+}
+
+.contact-page__field--full {
+  width: 100%;
+}
+
+/* 라벨 → 타이틀 컬러, 작게 */
+.contact-page__label {
+  font-size: 0.8rem;
+  margin-bottom: 0.4rem;
+  color: var(--text-title);
+}
+
+/* 인풋 / 텍스트박스 – 연한 그레이 박스 */
+.contact-page__input,
+.contact-page__textarea {
+  width: 100%;
+  border-radius: 6px;
+  border: 1px solid var(--border-subtle);
+  background-color: #e8e8e8;
+  color: var(--text-body);
+  padding: 0.75rem 0.9rem;
+  font-size: 0.95rem;
+  font-family: inherit;
+  outline: none;
+  resize: none;
+}
+
+.contact-page__input:focus,
+.contact-page__textarea:focus {
+  border-color: var(--text-title);
+  background-color: #e1e1e1;
+}
+
+/* SEND 버튼 영역 */
+.contact-page__actions {
+  margin-top: 1.4rem;
+}
+
+/* 버튼 – 가로 전체, 배경 타이틀색, 텍스트는 바디색 */
+.contact-page__submit {
+  width: 100%;
+  padding: 0.85rem 1.5rem;
+  border-radius: 8px;
+  border: none;
+  background-color: var(--text-title);
+  color: var(--border-subtle);
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.contact-page__submit:hover {
+  opacity: 0.92;
+  transform: translateY(-1px);
+}
+
+.contact-page__submit:active {
+  transform: translateY(0);
+}
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+  .contact-page {
+    padding: 4rem 0;
+    align-items: flex-start; /* 모바일/태블릿에서는 위에서부터 스크롤 */
+  }
+
+  .contact-page__inner {
+    padding: 0 1.5rem;
+    max-width: 100%;
+  }
+
+  .contact-page__grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .contact-page__row {
+    flex-direction: column;
+  }
+
+  .contact-page__title {
+    font-size: 2.4rem;
+  }
+
+  .contact-page__description {
+    font-size: 1rem;
+  }
+}

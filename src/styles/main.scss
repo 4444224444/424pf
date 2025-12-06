@@ -1,0 +1,46 @@
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&display=swap');
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@latest/dist/web/static/pretendard.css');
+
+/* === Theme tokens === */
+:root[data-theme="light"] {
+  --bg-page: #fbfbfb;
+  --text-title: #1a2f5a;
+  --text-header: #141414;
+  --text-body: #6b6b6b;
+  --border-subtle: #e3e3e3;
+}
+
+:root[data-theme="dark"] {
+  --bg-page: #141414;
+  --text-title: #C2D0DE;
+  --text-header: #F1F1F1;
+  --text-body: #C4C4C4;
+  --border-subtle: #333333;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: var(--bg-page);
+  color: var(--text-body);
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, sans-serif;
+  letter-spacing: -0.04rem; 
+}
+
+.title {
+  font-family: "IBM Plex Sans", sans-serif;
+  letter-spacing: -0.4rem;
+  color: var(--text-title);
+}
+
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
