@@ -31,7 +31,7 @@
 .contact-page__inner {
   width: 100%;
   max-width: 1200px;  /* 전체 폭 줄임 */
-  margin-top: 5rem;
+  margin-top: 8rem;
   padding: 0 2rem;   /* 좌우 여백만 */
 }
 
@@ -61,6 +61,7 @@
   font-size: 3rem;
   margin: 0 0 1.2rem;
   color: var(--text-title);
+  letter-spacing: -0.08em;
 }
 
 /* 설명 → 바디 컬러 */

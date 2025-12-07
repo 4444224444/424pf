@@ -1,87 +1,54 @@
-/* eslint-env node */
-/// <reference types="node" />
-
+// api/contact.js
 import nodemailer from "nodemailer";
 
-function sendJson(res, statusCode, body) {
-  res.statusCode = statusCode;
-  res.setHeader("Content-Type", "application/json");
-  res.end(JSON.stringify(body));
-}
-
-async function readJsonBody(req) {
-  const chunks = [];
-  for await (const chunk of req) {
-    chunks.push(chunk);
-  }
-  const bodyString = Buffer.concat(chunks).toString("utf8");
-  if (!bodyString) return {};
-  return JSON.parse(bodyString);
-}
-
 export default async function handler(req, res) {
-  // 1) 메서드 체크
+  // 1) POST 말고 들어오면 컷
   if (req.method !== "POST") {
-    return sendJson(res, 405, {
-      ok: false,
-      error: "METHOD_NOT_ALLOWED",
-    });
+    res.setHeader("Allow", ["POST"]);
+    return res.status(405).json({ ok: false, error: "Method Not Allowed" });
   }
 
   try {
-    // 2) Body 파싱
-    const { name, email, message } = await readJsonBody(req);
+    const { name, email, message } = req.body || {};
 
     if (!name || !email || !message) {
-      return sendJson(res, 400, {
+      return res.status(400).json({
         ok: false,
-        error: "MISSING_FIELDS",
+        error: "필수 값이 누락되었다.",
       });
     }
 
-    const { MAIL_USER, MAIL_PASS, MAIL_TO } = process.env;
-
-    // 3) 환경변수 체크
-    if (!MAIL_USER || !MAIL_PASS) {
-      return sendJson(res, 500, {
-        ok: false,
-        error: "MAIL_CONFIG_MISSING",
-      });
-    }
-
-    // 4) 메일 전송
+    // 2) 메일 서버 설정 (SMTP)
     const transporter = nodemailer.createTransport({
-      service: "gmail",
+      host: process.env.SMTP_HOST, // 예: smtp.gmail.com
+      port: Number(process.env.SMTP_PORT) || 465,
+      secure: true, // 465면 true
       auth: {
-        user: MAIL_USER,
-        pass: MAIL_PASS,
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
       },
     });
 
+    // 3) 실제 메일 보내기
     await transporter.sendMail({
-      from: `"424PF Contact" <${MAIL_USER}>`,
-      to: MAIL_TO || MAIL_USER,
-      subject: `[424PF] 새 문의 - ${name}`,
-      text: `
-이름: ${name}
-이메일: ${email}
-
-메시지:
-${message}
-      `.trim(),
+      from: `"424PF Contact" <${process.env.SMTP_USER}>`,
+      to: process.env.MAIL_TO || process.env.SMTP_USER, // 받을 메일
+      subject: `[424PF] 새 메시지 - ${name}`,
+      text: [
+        `이름: ${name}`,
+        `이메일: ${email}`,
+        "",
+        "===== 메시지 내용 =====",
+        message,
+      ].join("\n"),
     });
 
-    // 5) 성공 응답
-    return sendJson(res, 200, {
-      ok: true,
-      msg: "MAIL_SENT",
-    });
+    return res.status(200).json({ ok: true });
   } catch (err) {
     console.error("contact api error:", err);
-
-    return sendJson(res, 500, {
+    return res.status(500).json({
       ok: false,
-      error: err.message || "INTERNAL_SERVER_ERROR",
+      error: "메일 전송 중 서버 오류가 발생했다.",
     });
   }
 }
