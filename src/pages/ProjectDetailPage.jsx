@@ -1,5 +1,7 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
+import Prism from "prismjs";
+import "prismjs/themes/prism-tomorrow.css";
 import projects from "../data/project";
 import ProjectCard from "../components/home/ProjectCard";
 import "./ProjectDetailPage.scss";
@@ -14,6 +16,10 @@ export default function ProjectDetailPage() {
       behavior: "instant",
     });
   }, []);
+
+  useEffect(() => {
+  Prism.highlightAll();
+}, []);
 
   const project = projects.find((p) => String(p.id) === String(id));
 
@@ -84,7 +90,7 @@ export default function ProjectDetailPage() {
           <div className="project-detail__links">
             {liveUrl && (
               <a href={liveUrl} target="_blank" rel="noreferrer">
-                Web
+                Visit Web
               </a>
             )}
             {githubUrl && (
@@ -138,33 +144,36 @@ export default function ProjectDetailPage() {
             ))}
           </section>
 
-          {codeReview?.length > 0 && (
-            <section className="project-detail__section">
-              <h2>Code Review</h2>
-              <div className="project-detail__code-list">
-                {codeReview.map((block, idx) => (
-                  <div className="project-detail__code-item" key={idx}>
-                    {block.image && (
-                      <div className="project-detail__code-image">
-                        <img
-                          src={block.image}
-                          alt={block.title || `Code block ${idx + 1}`}
-                        />
-                      </div>
-                    )}
-                    <div className="project-detail__code-text">
-                      {block.title && (
-                        <h3 className="project-detail__code-title">
-                          {block.title}
-                        </h3>
-                      )}
-                      <p>{block.text}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </section>
+{codeReview?.length > 0 && (
+  <section className="project-detail__section">
+    <h2>Code Review</h2>
+
+    <div className="project-detail__code-list">
+      {codeReview.map((block, idx) => (
+        <div className="project-detail__code-item-simple" key={idx}>
+          
+          {/* 제목 */}
+          {block.title && (
+            <h3 className="project-detail__code-title">{block.title}</h3>
           )}
+
+          {/* 코드 */}
+          {block.code && (
+            <pre className="project-detail__code-snippet">
+              <code className="language-js">{block.code}</code>
+            </pre>
+          )}
+
+          {/* 설명 */}
+          {block.text && (
+            <p className="project-detail__code-text">{block.text}</p>
+          )}
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
         </main>
       </div>
 

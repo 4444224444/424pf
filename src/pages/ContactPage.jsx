@@ -32,15 +32,15 @@ export default function ContactPage() {
     const data = await res.json();
 
     if (!res.ok || !data.ok) {
-      alert("전송 중 오류가 발생했다. 나중에 다시 시도해달라.");
+      alert("오류 발생");
       return;
     }
 
-    alert("메시지가 성공적으로 전송되었다.");
+    alert("메시지가 성공적으로 전송되었습니다!");
     setForm({ name: "", email: "", message: "" });
   } catch (err) {
     console.error(err);
-    alert("서버에 연결할 수 없다.");
+    alert("서버에 연결할 수 없음");
   }
 };
 
@@ -55,9 +55,9 @@ export default function ContactPage() {
             <header className="contact-page__header">
               <h1 className="contact-page__title title">Drop Me a Line</h1>
               <p className="contact-page__description">
-                안녕하세요, 개발자 정혜진입니다. 저는 마이코를 보면 우는 여자고요
-                아베찌가를 보면서도 웁니다. 안녕하세요, 개발자 정혜진입니다. 저는
-                마이코를 보면 우는 여자고요 아베찌가를 보면서도 웁니다.
+                안녕하세요, 개발자 정혜진입니다.
+                프론트엔드 기반으로 인터페이스와 사용자 흐름을 설계하고 구현하며
+                아이디어를 구조화해 화면 위에서 자연스럽게 동작하도록 만드는 데 집중합니다.
               </p>
             </header>
 

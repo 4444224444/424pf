@@ -20,8 +20,9 @@
 }
 
 .project-detail__index {
-  margin-bottom: 0;
-  font-size: 2rem;
+  margin-bottom: -1rem;
+  font-family: "IBM Plex Sans", sans-serif;
+  font-size: 2.5rem;
   letter-spacing: -0.15rem;
 }
 
@@ -41,17 +42,20 @@
   }
 }
 
-.project-detail__links a {
-  font-size: 2rem;
-  color: var(--text-body);
-  opacity: 0.8;
-  margin-bottom: 0.4rem;
-  display: block;
-}
+.project-detail__links {
+  display: flex;
+  flex-direction: row;
+  margin-top: 1.5rem;
+  gap: 1.2rem;
 
-.project-detail__links a:hover {
-  color: var(--text-title);
-  opacity: 1;
+  a {
+    display: inline-block;
+    font-size: 1.2rem;
+  }
+
+  a:hover {
+    color: var(--text-title);
+  }
 }
 
 /* ===== 오른쪽 내용 영역 ===== */
@@ -112,33 +116,48 @@
   display: block;
 }
 
-/* Code Review: 이미지 + 텍스트 나란히 */
-.project-detail__code-list {
-    font-size: 1.3rem;
+.project-detail__code-item-simple {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  margin-top: 1.2rem;
-}
-
-.project-detail__code-item {
-  display: grid;
-  grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-  gap: 1.5rem;
-  align-items: flex-start;
-}
-
-.project-detail__code-image img {
-  width: 100%;
-  border-radius: 12px;
-  display: block;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
 }
 
 .project-detail__code-title {
-  font-size: 0.95rem;
-  margin: 0 0 0.4rem;
+  font-size: 1.05rem;
   font-weight: 600;
+  margin: 0;
 }
+
+.project-detail__code-snippet {
+  background: #1e1e1e;
+  padding: 18px 20px;
+  border-radius: 10px;
+  font-size: 0.82rem;
+  line-height: 1.6;
+  overflow-x: auto;
+  box-shadow: 0 0 0 1px #2d2d2d;
+}
+
+.project-detail__code-text {
+  font-size: 0.9rem;
+  color: #ccc;
+  line-height: 1.6;
+}
+
+
+/* 🔻 반응형: 넓은 화면에서 코드 / 텍스트 나란히 */
+@media (min-width: 900px) {
+  .project-detail__code-item {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); /* 왼쪽(코드) 더 넓게 */
+    align-items: flex-start;
+    gap: 2rem;
+  }
+}
+
+
+
 
 /* ===== Other Projects: 별도 섹션 ===== */
 .project-detail__others-section {

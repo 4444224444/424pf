@@ -26,16 +26,16 @@ const PROFILE = {
 };
 
 const CONTACT = [
-  { label: "TEL.", value: "010-0000-0000" },
-  { label: "E-mail", value: "jh0424@naver.com" },
-  { label: "INS", value: "@4444.242.4444" },
+  { label: "TEL.", value: "010-9413-5028" },
+  { label: "E-mail", value: "jhj030424@kaywon.ac.kr" },
+  { label: "INS", value: "@4444.22.4444" },
 ];
 
 const EDUCATION = [
-  { year: "2026", month: "02", text: "게임&소프트웨어과 졸업" },
-  { year: "2023", month: "03", text: "OO대학교 편입" },
-  { year: "2022", month: "02", text: "OO디자인고등학교 졸업" },
-  { year: "2019", month: "03", text: "OO디자인고등학교 입학" },
+  { year: "2026", month: "02", text: "계원예술대학교 졸업" },
+  { year: "2023", month: "03", text: "계원예술대학교 입학" },
+  { year: "2022", month: "02", text: "대원여자고등학교 졸업" },
+  { year: "2019", month: "03", text: "대원여자고등학교 입학" },
 ];
 
 const AWARDS = [
@@ -57,37 +57,37 @@ const SKILLS = [
     name: "HTML",
     category: "FRONT",
     image: HTML,
-    desc: "시멘틱 구조로 마크업하고, 접근성을 고려해 레이아웃을 설계할 수 있다.",
+    desc: "기본 구조부터 시맨틱 태그 활용, 레이아웃 구성까지 무리 없이 구현할 수 있으며, 프로젝트 전반을 안정적으로 구축하는 데 자연스럽게 활용할 수 있습니다.",
   },
   {
     name: "CSS/SCSS",
     category: "FRONT",
     image: SCSS,
-    desc: "SCSS 변수·믹스인·중첩을 활용해 컴포넌트 단위 스타일을 정리할 수 있다.",
+    desc: "변수, 믹스인, 중첩 규칙 등을 활용해 스타일 구조를 체계적으로 구성할 수 있으며, 반응형 레이아웃과 애니메이션 같은 시각적 표현도 안정적으로 구현이 가능합니다.",
   },
   {
     name: "JAVASCRIPT",
     category: "FRONT",
     image: JAVASCRIPT,
-    desc: "DOM 조작, 이벤트 처리, fetch 비동기 통신까지 웹 인터랙션을 구현할 수 있다.",
+    desc: "DOM 조작, 이벤트 제어, 비동기 처리, 컴포넌트 기반 UI 로직 구현 등 웹 인터랙션 전반을 능숙하게 다룰 수 있으며, 프로젝트 규모에 맞춘 구조 설계와 기능 개발을 수행할 수 있습니다.",
   },
   {
     name: "REACT",
     category: "FRONT",
     image: REACT,
-    desc: "컴포넌트 구조 설계, 상태 관리, 라우팅으로 SPA를 구성할 수 있다.",
+    desc: "상태 관리와 props 기반 구조를 활용해 재사용 가능한 컴포넌트를 설계할 수 있으며, 프로젝트 규모에 맞춘 폴더 구조 정리와 페이지 라우팅, 데이터 흐름 제어 등 전체 UI 로직을 안정적으로 구축이 가능합니다.",
   },
   {
     name: "THREE.JS",
     category: "FRONT",
     image: THREEJS,
-    desc: "기본 씬·카메라·메시 구성을 통해 3D 요소를 웹에 연출할 수 있다.",
+    desc: "카메라 제어와 메쉬 변환을 직접 다루며, 3D 오브젝트에 다양한 상호작용을 부여할 수 있습니다. 또한 장면 위에 오버레이 요소를 자연스럽게 얹어 UI와 3D 공간을 함께 구성하는 작업도 원활하게 수행합니다.",
   },
   {
     name: "EJS",
     category: "FRONT",
     image: EJS,
-    desc: "서버 사이드 렌더링으로 동적 페이지를 구성한 경험이 있다.",
+    desc: "템플릿 안에서 데이터 바인딩, 조건 분기, 반복 렌더링 등을 활용해 동적 페이지를 구성할 수 있으며, 레이아웃과 partial 구조를 나눠 실제 서비스 화면을 효율적으로 구축할 수 있습니다.",
   },
 
   // 백엔드
@@ -95,13 +95,13 @@ const SKILLS = [
     name: "NODE.JS",
     category: "BACK",
     image: NODEJS,
-    desc: "간단한 API 서버와 라우팅을 구성하고, 기본적인 서버 로직을 작성할 수 있다.",
+    desc: "RESTful API 구축, 라우팅 처리, 미들웨어 구성, 데이터 연동 등을 통해 서버 로직을 구현할 수 있으며, 프로젝트 요구에 맞춰 백엔드 흐름을 설계하고 확장할 수 있습니다.",
   },
   {
     name: "MONGODB",
     category: "BACK",
     image: MONGODB,
-    desc: "Mongoose로 스키마와 모델을 정의하고 CRUD를 구현해본 경험이 있다.",
+    desc: "컬렉션 구조와 스키마를 설계하고, 프로젝트에 맞는 데이터 모델을 정의한 뒤, CRUD 작업과 기본적인 쿼리·인덱싱을 통해 데이터를 관리할 수 있습니다.",
   },
 
   // 배포
@@ -109,7 +109,7 @@ const SKILLS = [
     name: "GIT HUB",
     category: "DEPLOYMENT",
     image: GITHUB,
-    desc: "버전 관리와 협업을 위한 브랜치 전략, 기본적인 Git 플로우를 사용한다.",
+    desc: "저장소 관리, 브랜치 운영, 버전 기록, 협업용 PR 흐름 등을 활용해 코드 변경 사항을 명확하게 관리하고 프로젝트를 안정적으로 유지할 수 있습니다.",
   },
 
   // 디자인
@@ -117,13 +117,13 @@ const SKILLS = [
     name: "FIGMA",
     category: "DESIGN",
     image: FIGMA,
-    desc: "와이어프레임, UI 컴포넌트, 프로토타입까지 한 흐름으로 정리할 수 있다.",
+    desc: "레이아웃 구성, 컴포넌트 설계, 프로토타이핑, 스타일 가이드 제작 등을 통해 UI를 구조적으로 설계하고 실제 개발에 바로 반영 가능한 디자인 시스템을 만들 수 있습니다.",
   },
   {
     name: "PHOTOSHOP",
     category: "DESIGN",
     image: PS,
-    desc: "보정·합성·썸네일 디자인 등 그래픽 작업을 웹에 맞게 조정할 수 있다.",
+    desc: "사진 보정, 합성, 레이어 기반 편집, 색 보정, 마스크 작업 등을 활용해 디지털 이미지를 원하는 스타일로 정교하게 가공하고, 웹·브랜딩 작업에 적합한 시각 자료를 제작할 수 있습니다.",
   },
 ];
 
