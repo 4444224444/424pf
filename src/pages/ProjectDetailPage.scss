@@ -20,16 +20,18 @@
 }
 
 .project-detail__index {
-  margin-bottom: -1rem;
+  margin-bottom: 0rem;
   font-family: "IBM Plex Sans", sans-serif;
   font-size: 2.5rem;
   letter-spacing: -0.15rem;
 }
 
 .project-detail__title {
-  font-size: 6rem;
+  font-size: 5rem;
   margin: 0 0 0 0rem;
   letter-spacing: -0.15rem;
+  line-height: 5rem;
+   max-width: 10rem;
 }
 
 .project-detail__meta {
@@ -124,26 +126,30 @@
 }
 
 .project-detail__code-title {
-  font-size: 1.05rem;
+  font-size: 1.5rem;
   font-weight: 600;
-  margin: 0;
+  margin: 2rem 0rem 0rem 0rem;
+  color: var(--text-body);
 }
 
 .project-detail__code-snippet {
   background: #1e1e1e;
   padding: 18px 20px;
   border-radius: 10px;
-  font-size: 0.82rem;
+  font-size: 1rem;
+  max-width: 50rem;
   line-height: 1.6;
   overflow-x: auto;
-  box-shadow: 0 0 0 1px #2d2d2d;
 }
 
-.project-detail__code-text {
-  font-size: 0.9rem;
-  color: #ccc;
-  line-height: 1.6;
+/* ★ 여기만 수정: ul에만 스타일 적용 */
+ul.project-detail__code-list {
+  font-size: 1rem;
+  color: var(--text-body);
+  line-height: 1.2;
 }
+
+
 
 
 /* 🔻 반응형: 넓은 화면에서 코드 / 텍스트 나란히 */

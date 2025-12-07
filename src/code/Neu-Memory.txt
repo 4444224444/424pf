@@ -1,0 +1,37 @@
+const raycaster = new THREE.Raycaster();
+const mouse = new THREE.Vector2();
+const clickableNodes = [];
+
+function onCanvasMouseMove(event) {
+  if (isDashboardOpen.value) return;
+
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(clickableNodes);
+
+  if (intersects.length > 0) {
+    const node = intersects[0].object;
+    hoveredNode = node;
+    updateNodePreview(node);
+  } else {
+    hoveredNode = null;
+    hideNodePreview();
+  }
+}
+
+function onCanvasClick(event) {
+  if (isDashboardOpen.value) return;
+
+  mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+  mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+  raycaster.setFromCamera(mouse, camera);
+  const intersects = raycaster.intersectObjects(clickableNodes);
+
+  if (intersects.length > 0) {
+    const node = intersects[0].object;
+    openDashboardWithAnimation(node);
+  }
+}

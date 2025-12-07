@@ -1,0 +1,31 @@
+const fallBoxes = document.querySelectorAll('.fall-box');
+
+// 1) 각 박스에 시작 위치 계산
+fallBoxes.forEach(box => {
+  const y = parseFloat(getComputedStyle(box).getPropertyValue('--y')) || 0;
+  const offset = 200;
+  box.style.setProperty('--startY', `${y - offset}px`);
+});
+
+// 2) 관찰자 설정
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const sortedBoxes = [...fallBoxes].sort((a, b) => {
+        const yA = parseFloat(getComputedStyle(a).getPropertyValue('--y')) || 0;
+        const yB = parseFloat(getComputedStyle(b).getPropertyValue('--y')) || 0;
+        return yB - yA;
+      });
+
+      sortedBoxes.forEach((box, i) => {
+        setTimeout(() => {
+          box.classList.add('active');
+        }, i * 120);
+      });
+    } else {
+      fallBoxes.forEach(box => box.classList.remove('active'));
+    }
+  });
+}, { threshold: 0.3 });
+
+observer.observe(document.querySelector('.fall-group'));

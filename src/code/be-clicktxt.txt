@@ -1,0 +1,46 @@
+document.addEventListener("DOMContentLoaded", () => {
+  const label = document.querySelector(".RegularLabel");
+  const span = label.querySelector(".Regular");
+
+  let typed = false;
+  label.style.cursor = "pointer";
+
+  const originalText = span.textContent;
+
+  span.innerHTML = `
+    <span class="ghost-text" style="opacity: 0.1; color: black; position: relative; z-index: 0;">
+      ${originalText}
+    </span>
+    <span class="typewriter-text" style="
+      position: absolute;
+      top: 0;
+      left: 0;
+      color: #1A1E29;
+      opacity: 1;
+      z-index: 1;
+      pointer-events: none;
+    "></span>
+  `;
+
+  span.style.position = "relative";
+  span.style.display = "inline-block";
+
+  const typingSpan = span.querySelector(".typewriter-text");
+
+  label.addEventListener("click", () => {
+    if (typed) return;
+    typed = true;
+
+    let i = 0;
+    typingSpan.textContent = "";
+
+    const interval = setInterval(() => {
+      if (i < originalText.length) {
+        typingSpan.textContent += originalText[i];
+        i++;
+      } else {
+        clearInterval(interval);
+      }
+    }, 80);
+  });
+});

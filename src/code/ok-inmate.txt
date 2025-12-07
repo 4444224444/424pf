@@ -1,0 +1,54 @@
+const [imIndex, setImIndex] = useState(0);
+const [imDragX, setImDragX] = useState(0);
+const imTrackRef = useRef(null);
+const imTouchStartX = useRef(null);
+const imContainerW = useRef(0);
+const imVideoRefs = useRef([]);
+
+useEffect(() => {
+  imVideoRefs.current.forEach((v, i) => {
+    if (!v) return;
+    if (i === imIndex) {
+      v.play().catch(() => {});
+    } else {
+      v.pause();
+      v.currentTime = 0;
+    }
+  });
+}, [imIndex]);
+
+const handleImDotClick = (i) => {
+  const last = (imSlides.length || 1) - 1;
+  setImIndex(Math.max(0, Math.min(i, last)));
+};
+
+const onImTouchStart = (e) => {
+  if (!e.touches || e.touches.length !== 1) return;
+  const container = imTrackRef.current?.parentElement; // ImVideoWrap
+  imContainerW.current = container?.clientWidth ?? window.innerWidth;
+  imTouchStartX.current = e.touches[0].clientX;
+  setImDragX(0);
+};
+
+const onImTouchMove = (e) => {
+  if (imTouchStartX.current == null || !e.touches) return;
+  const dx = e.touches[0].clientX - imTouchStartX.current;
+  setImDragX(dx);
+};
+
+const onImTouchEnd = () => {
+  const THRESHOLD_RATIO = 0.18;
+  const width = imContainerW.current || 1;
+  const moved = Math.abs(imDragX) / width;
+
+  if (moved > THRESHOLD_RATIO) {
+    setImIndex((prev) => {
+      const last = (imSlides.length || 1) - 1;
+      const next = imDragX < 0 ? prev + 1 : prev - 1;
+      return Math.max(0, Math.min(next, last)); // 끝에서 멈춤
+    });
+  }
+
+  imTouchStartX.current = null;
+  setImDragX(0);
+};

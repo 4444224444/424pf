@@ -153,21 +153,30 @@ export default function ProjectDetailPage() {
         <div className="project-detail__code-item-simple" key={idx}>
           
           {/* 제목 */}
-          {block.title && (
-            <h3 className="project-detail__code-title">{block.title}</h3>
-          )}
+{block.title && (
+  <h3 className="project-detail__code-title">{block.title}</h3>
+)}
 
-          {/* 코드 */}
-          {block.code && (
-            <pre className="project-detail__code-snippet">
-              <code className="language-js">{block.code}</code>
-            </pre>
-          )}
+{/* 코드 */}
+{block.code && (
+  <pre className="project-detail__code-snippet">
+    <code className="language-js">{block.code}</code>
+  </pre>
+)}
 
-          {/* 설명 */}
-          {block.text && (
-            <p className="project-detail__code-text">{block.text}</p>
-          )}
+{block.summary && (
+  <p className="project-detail__code-summary">{block.summary}</p>
+)}
+
+{/* 설명 (리스트) */}
+{block.list && Array.isArray(block.list) && (
+  <ul className="project-detail__code-list">
+    {block.list.map((item, idx) => (
+      <li key={idx}>{item}</li>
+    ))}
+  </ul>
+)}
+
         </div>
       ))}
     </div>

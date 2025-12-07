@@ -1,0 +1,48 @@
+const keyState = { KeyW: false, KeyA: false, KeyS: false, KeyD: false };
+let moveSpeed = 0.3;
+const BOUNDS = { x: 80, y: 80, z: 80 };
+
+function onKeyDown(event) {
+  if (isDashboardOpen.value) return;
+  if (keyState.hasOwnProperty(event.code)) {
+    keyState[event.code] = true;
+  }
+}
+
+function onKeyUp(event) {
+  if (keyState.hasOwnProperty(event.code)) {
+    keyState[event.code] = false;
+  }
+}
+
+function handleMovement() {
+  if (!controls || isDashboardOpen.value) return;
+
+  const forward = new THREE.Vector3();
+  camera.getWorldDirection(forward);
+  forward.y = 0;
+  forward.normalize();
+
+  const right = new THREE.Vector3();
+  right.crossVectors(forward, camera.up).normalize();
+
+  const move = new THREE.Vector3();
+  if (keyState.KeyW) move.add(forward);
+  if (keyState.KeyS) move.sub(forward);
+  if (keyState.KeyA) move.sub(right);
+  if (keyState.KeyD) move.add(right);
+
+  if (move.lengthSq() > 0) {
+    move.normalize().multiplyScalar(moveSpeed);
+
+    const nextPos = camera.position.clone().add(move);
+    nextPos.x = THREE.MathUtils.clamp(nextPos.x, -BOUNDS.x, BOUNDS.x);
+    nextPos.y = THREE.MathUtils.clamp(nextPos.y, -BOUNDS.y, BOUNDS.y);
+    nextPos.z = THREE.MathUtils.clamp(nextPos.z, -BOUNDS.z, BOUNDS.z);
+
+    const appliedDelta = nextPos.clone().sub(camera.position);
+
+    camera.position.copy(nextPos);
+    controls.target.add(appliedDelta);
+  }
+}

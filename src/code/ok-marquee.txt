@@ -1,0 +1,56 @@
+const kwWrapRef = useRef(null);
+const kwTrackRef = useRef(null);
+
+useEffect(() => {
+  const wrap = kwWrapRef.current;
+  const track = kwTrackRef.current;
+  if (!wrap || !track) return;
+
+  let x = 0;
+  let raf = 0;
+  let last = 0;
+  const speed = 80; // px/sec
+
+  const getGap = () => {
+    const first = track.firstElementChild;
+    if (!first) return 0;
+    const mr = parseFloat(getComputedStyle(first).marginRight || '0');
+    return isNaN(mr) ? 0 : mr;
+  };
+
+  const loop = (t) => {
+    if (!last) last = t;
+    const dt = (t - last) / 1000;
+    last = t;
+
+    x -= speed * dt;
+    track.style.transform = 'translateX(' + x + 'px)';
+
+    const wrapLeft = wrap.getBoundingClientRect().left;
+    const first = track.firstElementChild;
+    if (first) {
+      const firstRect = first.getBoundingClientRect();
+      if (firstRect.right <= wrapLeft) {
+        const w = first.offsetWidth + getGap();
+        x += w; // 보정
+        track.style.transform = 'translateX(' + x + 'px)';
+        track.appendChild(first); // 맨 뒤로 이동
+      }
+    }
+
+    raf = requestAnimationFrame(loop);
+  };
+
+  const onResize = () => {
+    x = 0;
+    last = 0;
+    track.style.transform = 'translateX(0px)';
+  };
+
+  raf = requestAnimationFrame(loop);
+  window.addEventListener('resize', onResize);
+  return () => {
+    cancelAnimationFrame(raf);
+    window.removeEventListener('resize', onResize);
+  };
+}, []);

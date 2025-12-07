@@ -4,10 +4,32 @@ import OKhero from "../assets/OKhero.svg";
 import OK1 from "../assets/OK1.svg";
 import OK2 from "../assets/OK2.svg";
 import OK3 from "../assets/OK3.svg";
+import okMarqueeCode from "../code/ok-marquee.txt?raw";
+import okColorPicker from "../code/ok-color.txt?raw";
+import okInmate from "../code/ok-inmate.txt?raw";
 
 import BaroEatThum from "../assets/BaroEatThum.svg";
+import BaroEatHero from "../assets/BaroEatHero.svg";
+import BaroEat1 from "../assets/BaroEat1.svg";
+import BaroEat2 from "../assets/BaroEat2.svg";
+import BEfallbox from "../code/be-fallbox.txt?raw";
+import BEtxt from "../code/be-txt.txt?raw";
+import BEclicktxt from "../code/be-clicktxt.txt?raw";
+
 import Neuroverse from "../assets/Neuroverse.svg";
+import NeuroHero from "../assets/NeuroHero.svg";
+import Neuro1 from "../assets/Neuro1.svg";
+import NeuMemory from "../code/Neu-Memory.txt?raw";
+import NeuWASD from "../code/Neu-WASD.txt?raw";
+import NeuScript from "../code/Neu-script.txt?raw";
+
 import MyWeather from "../assets/MyWeather.svg";
+import WeatherHero from "../assets/WeatherHero.svg";
+import Weather1 from "../assets/Weather1.svg";
+import Weather2 from "../assets/Weather2.svg";
+
+import WeatherHook from "../code/WeatherHook.txt?raw";
+
 import BackToTheWeb from "../assets/BackToTheWeb.svg";
 
 const projects = [
@@ -37,67 +59,46 @@ const projects = [
 
     codeReview: [
       {
-        title: "키워드 무한 루프 마키 구현",
-        text: "키워드 이미지를 requestAnimationFrame과 DOM 조작으로 제어해, 복제 없이 자연스럽게 반복되는 마키 인터랙션을 구현했다.",
-        code: `
-const kwWrapRef = useRef(null);
-const kwTrackRef = useRef(null);
-
-useEffect(() => {
-  const wrap = kwWrapRef.current;
-  const track = kwTrackRef.current;
-  if (!wrap || !track) return;
-
-  let x = 0;
-  let raf = 0;
-  let last = 0;
-  const speed = 80; // px/sec
-
-  const getGap = () => {
-    const first = track.firstElementChild;
-    if (!first) return 0;
-    const mr = parseFloat(getComputedStyle(first).marginRight || '0');
-    return isNaN(mr) ? 0 : mr;
-  };
-
-  const loop = (t) => {
-    if (!last) last = t;
-    const dt = (t - last) / 1000;
-    last = t;
-
-    x -= speed * dt;
-    track.style.transform = 'translateX(' + x + 'px)';
-
-    const wrapLeft = wrap.getBoundingClientRect().left;
-    const first = track.firstElementChild;
-    if (first) {
-      const firstRect = first.getBoundingClientRect();
-      if (firstRect.right <= wrapLeft) {
-        const w = first.offsetWidth + getGap();
-        x += w; // 보정
-        track.style.transform = 'translateX(' + x + 'px)';
-        track.appendChild(first); // 맨 뒤로 이동
-      }
-    }
-
-    raf = requestAnimationFrame(loop);
-  };
-
-  const onResize = () => {
-    x = 0;
-    last = 0;
-    track.style.transform = 'translateX(0px)';
-  };
-
-  raf = requestAnimationFrame(loop);
-  window.addEventListener('resize', onResize);
-  return () => {
-    cancelAnimationFrame(raf);
-    window.removeEventListener('resize', onResize);
-  };
-}, []);
-        `,
+        title: "01 키워드 무한 루프 마키 구현",
+        summary: "무한 슬라이드를 위해 애니메이션 반복, 요소 이동 판별, 간격 계산, 반응형 처리 등을 통합적으로 구현하였습니다.",
+        list: [
+    "- requestAnimationFrame을 사용하여 일정 속도의 애니메이션 구현",
+    "- getComputedStyle을 이용해 margin을 포함한 요소 간격 계산.",
+    "- getBoundingClientRect로 요소의 화면 이탈 여부를 판별",
+    "- resize 이벤트를 적용하여 위치값을 초기화",
+    "- 언마운트 시 cancelAnimationFrame과 removeEventListener로 자원 정리",
+  ],
+        code: okMarqueeCode,
       },
+
+      {
+        title: "02 컬러피커 인터랙션 (오프스크린 캔버스 + 마우스 위치 추적 + 포털 툴팁)",
+        summary: "이미지를 캔버스에 그려 픽셀 색상을 실시간으로 추출하고, 마우스 위치를 따라다니는 툴팁을 포털로 렌더링하여 선택한 색상의 HEX 값을 보여주는 컬러 피커 기능을 구현하였습니다.",
+        list: [
+
+    "- useRef와 오프스크린 <canvas>를 사용하여 이미지 픽셀 정보 구현",
+    "- onMouseMove와 getBoundingClientRect로 마우스 위치를 계산하고, 캔버스 해상도에 맞게 좌표를 스케일링",
+    "- getImageData로 해당 좌표 픽셀의 RGB 값을 읽고, rgbToHex 함수로 HEX 컬러 코드로 변환",
+    "- hover 상태와 커서 좌표를 상태로 관리하여, 마우스를 따라다니는 색상 미리보기 툴팁을 구현",
+    "- createPortal과 document 존재 여부 판별을 통해 툴팁을 document.body에 포탈 렌더링하고, SSR 환경에서도 안전하게 동작하도록 처리",
+  ],
+        code: okColorPicker,
+      },
+
+      {
+        title: "03 점 네비 기반 영상 슬라이더 인터랙션",
+        summary: "고정된 배경 위에 마스크 영역을 두고, 점 네비게이션과 트랙 이동을 통해 여러 개의 영상을 가로 슬라이드 형식으로 전환하는 UI를 구현하였습니다.",
+        list: [
+
+    "- 점 네비 클릭 시 인덱스를 갱신하고 translateX로 해당 슬라이드를 표시",
+    "- 터치 드래그 이동량을 계산해 임계값을 넘으면 이전·다음 슬라이드로 전환",
+    "- 활성 슬라이드의 영상만 재생하고 나머지는 정지·초기화",
+    "- 고정 배경 + 마스크 구조로 트랙 이동과 점 네비가 안정적으로 동작하도록 구성",
+  ],
+        code: okInmate,
+      },
+
+
     ],
   },
 
@@ -111,35 +112,49 @@ useEffect(() => {
     githubUrl: "https://github.com/4444224444/BaroEat",
 
     thumbnail: BaroEatThum,
-    heroImage: "/images/baro-hero.png",
-    gallery: ["/images/baro-1.png", "/images/baro-2.png", "/images/baro-3.png"],
+    heroImage: BaroEatHero,
+    gallery: [BaroEat1, BaroEat2 ],
 
     overview: [
-      "모바일 환경에서 빠르게 주문할 수 있는 푸드 오더링 웹 서비스.",
-      "메인 화면에서 카테고리, 추천 메뉴, 최근 주문을 한 번에 확인하도록 정보 구조를 설계함.",
+      "2025 03-06 Team Project",
+      "시니어를 위한 키오스크 어플 바로잇 웹 구현",
     ],
 
     techSummary: [
-      "React 기반 SPA",
-      "SCSS 모듈로 컴포넌트 단위 스타일링",
-      "반응형 레이아웃 구현",
+      "HTML",
+      "CSS",
+      "JAVASCRIPT",
     ],
 
     introduce: [
-      "사용자가 '주문 과정이 길지 않을 것'이라는 확신을 가질 수 있도록 화면 전환을 최소화했다.",
-      "CTA 버튼의 위치, 색 대비를 조정해 첫 진입 화면에서 바로 주문 플로우가 보이도록 구성했다.",
+      "디자인 시안을 바탕으로 반응형 구조와 접근성을 고려한 화면을 직접 코딩하며, HTML, CSS, JavaScript의 구조적 역할을 체계적으로 이해하게 되었습니다. 첫 협업 프로젝트였던 만큼, 디자이너·기획자와의 커뮤니케이션을 통해 퍼블리셔로서의 조율 능력과 프로젝트 전반의 흐름을 함께 배울 수 있던 경험이었습니다.",
     ],
 
     codeReview: [
       {
-        image: "/images/baro-code-1.png",
-        title: "상태 관리 구조 리팩토링",
-        text: "초기에는 페이지별로 중복 상태가 많았으나, 공통 훅과 컨텍스트를 도입해 주문 플로우 상태를 한 곳에서 관리하도록 리팩토링했다.",
+        title: "01 클릭 트리거 타이핑",
+        summary: "레이블 클릭 시 흐린 배경 텍스트 위로 선명한 텍스트가 한 글자씩 타이핑되며 나타나는 인터랙션입니다.",
+        list: [
+    "- 라벨 클릭 이벤트로 타이핑 애니메이션 단발성 실행",
+    "- ghost-text(희미한 텍스트) + typewriter-text(실제 출력) 이중 레이어 구조",
+    "- 문자 단위 setInterval 기반 타이핑 로직",
+    "- 한 번 실행 후 재클릭 방지 플래그(typed) 적용",
+    "- 인라인 포지션 스타일로 두 텍스트를 정확히 겹쳐 자연스럽게 연출",
+  ],
+        code: BEclicktxt,
       },
+
       {
-        image: "/images/baro-code-2.png",
-        title: "컴포넌트 분리 기준",
-        text: "UI 조각 단위가 아닌, 실제 사용자 액션 단위로 컴포넌트를 분리해 재사용성과 가독성을 함께 챙겼다.",
+        title: "02 박스 스크롤 애니메이션",
+        summary: "CSS 변수 기반 위치 값을 읽어 요소를 정렬한 뒤, 화면 진입 시 아래 박스부터 순차적으로 등장시키는 스크롤 인터랙션입니다.",
+        list: [
+    "- CSS 커스텀 변수(--y)를 읽어 박스의 시작 위치(--startY)를 동적으로 설정",
+    "- ntersectionObserver로 .fall-group 진입 시점을 감지",
+    "- 요소의 --y 값을 기준으로 아래 → 위 순서로 등장하도록 정렬",
+    "- setTimeout을 이용해 일정 간격으로 순차 등장 애니메이션 실행",
+    "- 화면에서 벗어날 때 active 클래스를 제거해 재스크롤 시 반복 재생 가능",
+  ],
+        code: BEfallbox,
       },
     ],
   },
@@ -154,36 +169,64 @@ useEffect(() => {
     githubUrl: "https://github.com/4444224444/javalast",
 
     thumbnail: Neuroverse,
-    heroImage: "/images/baro-hero.png",
-    gallery: ["/images/baro-1.png", "/images/baro-2.png", "/images/baro-3.png"],
+    heroImage: NeuroHero,
+    gallery: [Neuro1],
 
     overview: [
-      "모바일 환경에서 빠르게 주문할 수 있는 푸드 오더링 웹 서비스.",
-      "메인 화면에서 카테고리, 추천 메뉴, 최근 주문을 한 번에 확인하도록 정보 구조를 설계함.",
+      "2025 09-12 Personal Project",
+      "이 사람은 무엇을 생각하며 사는가? 타인(나)의 뇌내 우주를 유영하며 소개하는 웹사이트",
     ],
 
     techSummary: [
-      "React 기반 SPA",
-      "SCSS 모듈로 컴포넌트 단위 스타일링",
-      "반응형 레이아웃 구현",
+      "HTML",
+      "CSS",
+      "Three.js",
+      "JAVASCRIPT",
     ],
 
     introduce: [
-      "사용자가 '주문 과정이 길지 않을 것'이라는 확신을 가질 수 있도록 화면 전환을 최소화했다.",
-      "CTA 버튼의 위치, 색 대비를 조정해 첫 진입 화면에서 바로 주문 플로우가 보이도록 구성했다.",
+      "Neuroverse는 나의 사고 구조를 시각화한 3D 인터랙티브 자기소개 웹사이트입니다. 인간의 뇌 뉴런 네트워크와 우주의 구조적 유사성에서 출발해, 생각의 연결과 창의적 확장을 Three.js 기반의 그래픽으로 표현했습니다. HTML, CSS, JavaScript, Three.js로 구현하며, 사용자 움직임이나 마우스 인터랙션에 반응하는 3D 공간 속에서 나를 탐색하는 새로운 웹 경험을 제공합니다.",
     ],
 
     codeReview: [
       {
-        image: "/images/baro-code-1.png",
-        title: "상태 관리 구조 리팩토링",
-        text: "초기에는 페이지별로 중복 상태가 많았으나, 공통 훅과 컨텍스트를 도입해 주문 플로우 상태를 한 곳에서 관리하도록 리팩토링했다.",
+        title: "01 뇌 메모리 노드 Raycasting과 대시보드 전환 인터랙션",
+        summary: "Three.js Raycaster를 활용해 뇌 안의 기억 노드를 호버·클릭하면 이미지 프리뷰와 대시보드가 단계적으로 전환되는 인터랙션을 구현하였습니다.",
+        list: [
+    "- THREE.Raycaster와 THREE.Vector2를 사용해 마우스 위치 기반 Raycasting을 구현",
+    "- clickableNodes 배열에 등록된 노드만 교차 검사하여 성능을 관리",
+    "- 호버 시 updateNodePreview로 노드 위치를 스크린 좌표로 투영해 이미지 프리뷰 띄우기",
+    "- 클릭 시 선택된 노드를 openDashboardWithAnimation에 전달해 GSAP 타임라인 기반 UI 전환",
+  ],
+        code: NeuMemory,
       },
+
       {
-        image: "/images/baro-code-2.png",
-        title: "컴포넌트 분리 기준",
-        text: "UI 조각 단위가 아닌, 실제 사용자 액션 단위로 컴포넌트를 분리해 재사용성과 가독성을 함께 챙겼다.",
+        title: "02 WASD 기반 뇌 내부 3D 탐색과 카메라 타깃 동기화",
+        summary: "WASD 입력을 이용해 뇌 내부를 1인칭에 가까운 관점으로 이동하면서, OrbitControls의 타깃을 함께 이동시켜 자연스러운 카메라 탐색 경험을 구현하였습니다.",
+        list: [
+    "- keydown/keyup 이벤트와 keyState 맵으로 WASD 입력 상태를 관리",
+    "- camera.getWorldDirection으로 전방 벡터를 계산하고, crossVectors로 우측 벡터를 도출",
+    "- 이동 벡터를 정규화 후 moveSpeed를 곱해 프레임 독립적인 이동 속도를 유지",
+    "- THREE.MathUtils.clamp를 사용해 뇌 내부 박스(BOUNDS) 밖으로 카메라가 벗어나지 않도록 제한",
+    "- 카메라 위치 변경에 맞춰 controls.target도 동일한 Delta를 더해 시점과 회전 중심이 어긋나지 않도록 동기화",
+  ],
+        code: NeuWASD,
       },
+
+      {
+        title: "03 DEV Console 기반 가짜 스크립트 파서와 실시간 파라미터 조정",
+        summary: "텍스트 영역에 입력한 scene.bg(), player.speed() 같은 단순 스크립트 문법을 직접 파싱하여, Three.js 장면과 인터랙션 파라미터를 실시간으로 제어하는 내부용 Param Lab을 구현하였습니다.",
+        list: [
+    "- dev-input textarea의 내용을 줄 단위로 읽고, 공백·주석(//) 라인은 무시하도록 전처리",
+    "- 인자 문자열을 split(",") 후 숫자/문자열 여부를 판별해 적절한 타입으로 캐스팅",
+    "- 잘못된 토큰이나 정의되지 않은 명령은 조용히 무시해, 실험적 입력에도 런타임 에러 없이 동작",
+    "- scene.bg, brain.moveTo, player.speed, stars.spin, bounds.cage 등 사전에 정의된 “가짜 API”를 통해 배경색, 뇌 위치, 이동 속도, 별 회전 속도, 이동 가능 범위를 실시간으로 변경",
+  ],
+        code: NeuScript,
+      },
+
+
     ],
   },
 
@@ -197,39 +240,42 @@ useEffect(() => {
     githubUrl: "https://github.com/4444224444/weather-react-app",
 
     thumbnail: MyWeather,
-    heroImage: "/images/baro-hero.png",
-    gallery: ["/images/baro-1.png", "/images/baro-2.png", "/images/baro-3.png"],
+    heroImage: WeatherHero,
+    gallery: [ Weather1, Weather2 ],
 
     overview: [
-      "모바일 환경에서 빠르게 주문할 수 있는 푸드 오더링 웹 서비스.",
-      "메인 화면에서 카테고리, 추천 메뉴, 최근 주문을 한 번에 확인하도록 정보 구조를 설계함.",
+      "2025 04-06 Personal Project",
+      "날씨별 맞춤 큐레이션 웹 ",
     ],
 
     techSummary: [
-      "React 기반 SPA",
-      "SCSS 모듈로 컴포넌트 단위 스타일링",
-      "반응형 레이아웃 구현",
+      "React",
+      "css",
+      "Open Weather API",
     ],
 
     introduce: [
-      "사용자가 '주문 과정이 길지 않을 것'이라는 확신을 가질 수 있도록 화면 전환을 최소화했다.",
-      "CTA 버튼의 위치, 색 대비를 조정해 첫 진입 화면에서 바로 주문 플로우가 보이도록 구성했다.",
+      "OpenWeather API를 활용하여 실시간 날씨에 맞춰 영화, 음악, 도서를 추천하는 큐레이션 웹입니다. 사용자가 접속한 지역의 날씨 데이터를 기반으로 배경 화면이 변화하도록 구현해, 시각적으로 날씨의 분위기를 느낄 수 있는 감각적인 웹 경험을 제공합니다. 또한 로컬 스토리지를 활용한 로그인 접근 제한 기능을 통해 로그인한 사용자만 콘텐츠를 이용할 수 있도록 설정하며, 프론트엔드에서의 데이터 연동과 접근 제어 흐름을 깊이 이해할 수 있었습니다. API 데이터 처리와 사용자 인증, UI 반응을 함께 다루며 웹이 가진 실시간성과 몰입형 인터랙션의 가능성을 경험한 프로젝트입니다.",
     ],
 
     codeReview: [
       {
-        image: "/images/baro-code-1.png",
-        title: "상태 관리 구조 리팩토링",
-        text: "초기에는 페이지별로 중복 상태가 많았으나, 공통 훅과 컨텍스트를 도입해 주문 플로우 상태를 한 곳에서 관리하도록 리팩토링했다.",
+        title: "01 사용자 위치 기반 OpenWeatherMap 커스텀 훅",
+        summary: "사용자의 현재 GPS 좌표를 가져와 OpenWeatherMap API를 호출하고, 응답 값에서 날씨 상태·기온·풍속·강수량만 추려 UI에서 바로 사용할 수 있도록 정제해 주는 커스텀 React Hook이다. 복잡한 날씨 데이터를 clear / clouds / rain / snow 네 가지 카테고리로 단순화해 날씨 UI를 쉽게 렌더링할 수 있도록 설계했다.",
+        list: [
+    "- navigator.geolocation을 사용해 위도/경도를 가져와 해당 지역의 날씨만 조회",
+    "- OpenWeatherMap의 상세 코드를 clear / clouds / rain / snow로 매핑해 UI에서 쉽게 사용하도록 정리",
+    "- 온도(°C), 풍속, 강수량, 날씨 타입을 각각 state로 관리해 상위 컴포넌트에서 즉시 활용 가능",
+    "- API 요청 전후에 loading을 관리하여 스켈레톤/로딩 UI 렌더링이 용이하도록 구성",
+  ],
+        code: WeatherHook,
       },
-      {
-        image: "/images/baro-code-2.png",
-        title: "컴포넌트 분리 기준",
-        text: "UI 조각 단위가 아닌, 실제 사용자 액션 단위로 컴포넌트를 분리해 재사용성과 가독성을 함께 챙겼다.",
-      },
+
+
     ],
   },
 
+  /*
   {
     id: 5,
     indexLabel: "05",
@@ -272,6 +318,7 @@ useEffect(() => {
       },
     ],
   },
+  */
 ];
 
 export default projects;

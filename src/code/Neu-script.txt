@@ -1,0 +1,88 @@
+const devRunBtn = document.getElementById("dev-run");
+if (devRunBtn) {
+  devRunBtn.addEventListener("click", runDevScript);
+}
+
+function runDevScript() {
+  const textarea = document.getElementById("dev-input");
+  if (!textarea) return;
+
+  const lines = textarea.value.split("\n");
+
+  lines.forEach((rawLine) => {
+    const line = rawLine.trim();
+    if (!line || line.startsWith("//")) return;
+
+    const match = /^(\w+)\.(\w+)\((.*)\)$/.exec(line);
+    if (!match) return;
+
+    const objName = match[1];
+    const methodName = match[2];
+    const argString = match[3].trim();
+
+    const args = argString.length
+      ? argString
+          .split(",")
+          .map((s) => s.trim())
+          .filter((s) => s.length > 0)
+          .map((token) => {
+            if (
+              (token.startsWith('"') && token.endsWith('"')) ||
+              (token.startsWith("'") && token.endsWith("'"))
+            ) {
+              return token.slice(1, -1);
+            }
+            const num = Number(token);
+            if (!Number.isNaN(num)) return num;
+            return token;
+          })
+      : [];
+
+    applyDevCall(objName, methodName, args);
+  });
+}
+
+function applyDevCall(obj, method, args) {
+  if (obj === "scene" && method === "bg" && typeof args[0] === "string") {
+    scene.background = new THREE.Color(args[0]);
+    document.body.style.backgroundColor = args[0];
+    return;
+  }
+
+  if (obj === "brain" && pointsGroup) {
+    if (method === "moveTo") {
+      const [x, y, z] = args;
+      if (typeof x === "number") pointsGroup.position.x = x;
+      if (typeof y === "number") pointsGroup.position.y = y;
+      if (typeof z === "number") pointsGroup.position.z = z;
+      return;
+    }
+    if (method === "offset") {
+      const [dx, dy, dz] = args;
+      if (typeof dx === "number") pointsGroup.position.x += dx;
+      if (typeof dy === "number") pointsGroup.position.y += dy;
+      if (typeof dz === "number") pointsGroup.position.z += dz;
+      return;
+    }
+  }
+
+  if (obj === "player" && method === "speed" && typeof args[0] === "number") {
+    moveSpeed = args[0];
+    return;
+  }
+
+  if (obj === "stars" && method === "spin") {
+    const [sx, sy] = args;
+    if (typeof sx === "number") starSpeed.x = sx;
+    if (typeof sy === "number") starSpeed.y = sy;
+    return;
+  }
+
+  if (obj === "bounds" && method === "cage" && typeof args[0] === "number") {
+    const v = Math.abs(args[0]);
+    BOUNDS.x = v;
+    BOUNDS.y = v;
+    BOUNDS.z = v;
+    return;
+  }
+}
