@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { HashRouter, Routes, Route } from "react-router-dom";
 
 import Header from "../components/layout/Header";
 import HomePage from "../pages/HomePage";
@@ -19,7 +19,7 @@ export default function AppRouter() {
   }, [theme]);
 
   return (
-    <BrowserRouter>
+    <HashRouter>
       <Header
         viewMode={viewMode}
         setViewMode={setViewMode}
@@ -27,13 +27,14 @@ export default function AppRouter() {
         toggleTheme={toggleTheme}
       />
       <main className="page">
-        <Routes>n
+        <Routes>
           <Route path="/" element={<HomePage viewMode={viewMode} />} />
           <Route path="/projects/:id" element={<ProjectDetailPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/contact" element={<ContactPage />} />
         </Routes>
       </main>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
+
