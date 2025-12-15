@@ -87,9 +87,9 @@ export default function ContactPage() {
               <div className="contact-page__info-row">
                 <dt className="contact-page__info-label">Resume</dt>
                 <dd className="contact-page__info-value">
-                  <a href="/assets/resume.pdf" download>
-                    Download
-                  </a>
+                  <a href="/assets/resume.pdf" download="resume.pdf">
+  Download
+</a>
                 </dd>
               </div>
             </dl>
