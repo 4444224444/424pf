@@ -2,7 +2,11 @@
 import { useState, useEffect } from "react";
 import "./AboutPage.scss";
 
+
+
 //이미지
+import Info from "../assets/Info.svg";
+
 import HTML from "../assets/HTML.jpg";
 import SCSS from "../assets/SCSS.jpg";
 import JAVASCRIPT from "../assets/JAVASCRIPT.jpg";
@@ -198,7 +202,13 @@ export default function AboutPage() {
         <h2 className="about-page__section-title">INFO</h2>
 
         <div className="about-page__info-row">
-          <div className="about-page__photo-placeholder" />
+          <div className="about-page__photo-placeholder">
+  <img
+    src={Info}
+    alt={`${PROFILE.name} profile`}
+    className="about-page__photo"
+  />
+</div>
 
           <div className="about-page__info-text">
             <dl className="about-page__basic-table">

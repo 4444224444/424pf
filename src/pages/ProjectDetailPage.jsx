@@ -10,16 +10,14 @@ export default function ProjectDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    window.scrollTo({
-      top: 0,
-      behavior: "instant",
-    });
-  }, []);
+useEffect(() => {
+  window.scrollTo({ top: 0, behavior: "instant" });
+}, [id]);
 
-  useEffect(() => {
+// ✅ Prism 하이라이트: id 바뀔 때마다
+useEffect(() => {
   Prism.highlightAll();
-}, []);
+}, [id]);
 
   const project = projects.find((p) => String(p.id) === String(id));
 

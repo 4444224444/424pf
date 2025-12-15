@@ -27,10 +27,9 @@ import MyWeather from "../assets/MyWeather.svg";
 import WeatherHero from "../assets/WeatherHero.svg";
 import Weather1 from "../assets/Weather1.svg";
 import Weather2 from "../assets/Weather2.svg";
-
 import WeatherHook from "../code/WeatherHook.txt?raw";
 
-import BackToTheWeb from "../assets/BackToTheWeb.svg";
+import NP from "../assets/NP.svg";
 
 const projects = [
   {
@@ -275,17 +274,17 @@ const projects = [
     ],
   },
 
-  /*
+
   {
     id: 5,
     indexLabel: "05",
-    title: "Back to the Web",
-    date: "2025 03-04",
-    stack: ["REACT", "CSS", "JAVASCRIPT", "THREE.JS"],
-    liveUrl: "https://4444224444.github.io/backtotheweb/",
-    githubUrl: "https://github.com/4444224444/backtotheweb",
+    title: "NOW-PLAYING",
+    date: "2025 09-12",
+    stack: ["EJS", "JS", "MONGODB", "SPOTIFY API"],
+    liveUrl: "https://musicfeed.onrender.com/",
+    githubUrl: "https://github.com/4444224444/musicfeed",
 
-    thumbnail: BackToTheWeb,
+    thumbnail: NP,
     heroImage: "/images/baro-hero.png",
     gallery: ["/images/baro-1.png", "/images/baro-2.png", "/images/baro-3.png"],
 
@@ -295,9 +294,10 @@ const projects = [
     ],
 
     techSummary: [
-      "React 기반 SPA",
-      "SCSS 모듈로 컴포넌트 단위 스타일링",
-      "반응형 레이아웃 구현",
+      "EJS",
+      "node.js",
+      "MONGODB",
+      "Spotify API",
     ],
 
     introduce: [
@@ -318,7 +318,7 @@ const projects = [
       },
     ],
   },
-  */
+
 ];
 
 export default projects;
