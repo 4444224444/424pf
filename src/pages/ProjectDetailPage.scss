@@ -67,7 +67,8 @@
 
 .project-detail__hero {
   width: 100%;
-  height: 420px;
+  height: 380px;
+  margin-bottom: 0;
 }
 
 .project-detail__hero img {
@@ -266,3 +267,8 @@ ul.project-detail__code-list {
   }
 }
 
+.project-detail__video video {
+  width: 100%;
+  border-radius: 14px;
+  display: block;
+}

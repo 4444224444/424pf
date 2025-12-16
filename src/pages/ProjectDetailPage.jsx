@@ -135,6 +135,24 @@ useEffect(() => {
             </section>
           )}
 
+          {project.video && (
+  <section className="project-detail__section">
+    <h2>Demo Video</h2>
+
+    <div className="project-detail__video">
+      <video
+        src={project.video.src}
+        poster={project.video.poster}
+        controls
+        playsInline
+        preload="metadata"
+      />
+    </div>
+  </section>
+)}
+
+
+
           <section className="project-detail__section">
             <h2>Introduce</h2>
             {introduce?.map((para, idx) => (

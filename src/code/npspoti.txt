@@ -1,0 +1,24 @@
+const spotifyCallback = async (req, res) => {
+  const code = req.query.code || null;
+  const userId = req.query.state || null;
+
+  const tokenResp = await axios({
+    method: 'post',
+    url: 'https://accounts.spotify.com/api/token',
+    data: querystring.stringify({
+      grant_type: 'authorization_code',
+      code,
+      redirect_uri: 'http://127.0.0.1:5000/api/spotify/callback',
+    }),
+    headers: { Authorization: 'Basic ' + base64(clientId:secret) },
+  });
+
+  const { access_token, refresh_token } = tokenResp.data;
+
+  await User.findByIdAndUpdate(userId, {
+    spotifyAccessToken: access_token,
+    spotifyRefreshToken: refresh_token,
+  });
+
+  return res.redirect('/');
+};

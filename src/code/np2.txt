@@ -1,0 +1,17 @@
+const getRecentTracks = async (req, res) => {
+  let accessToken = req.user.spotifyAccessToken;
+
+  const r = await axios.get('https://api.spotify.com/v1/me/player/recently-played', {
+    headers: { Authorization: `Bearer ${accessToken}` },
+    params: { limit: 20 },
+  });
+
+  const items = (r.data.items || []).map(({ track }) => ({
+    id: track.id,
+    name: track.name,
+    artists: track.artists.map((a) => a.name).join(', '),
+    albumCover: track.album?.images?.[0]?.url || null,
+  }));
+
+  return res.status(200).json(items);
+};

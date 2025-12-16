@@ -1,0 +1,26 @@
+const pushGeneratedPlaylistToSpotify = async (req, res) => {
+  const { playlistId } = req.body;
+  const playlistDoc = await GeneratedPlaylist.findById(playlistId);
+
+  const meResp = await axios.get('https://api.spotify.com/v1/me', { headers });
+  const spotifyUserId = meResp.data.id;
+
+  const createResp = await axios.post(
+    `https://api.spotify.com/v1/users/${spotifyUserId}/playlists`,
+    { name: playlistDoc.title, public: false, description: playlistDoc.description },
+    { headers }
+  );
+
+  const spotifyPlaylistId = createResp.data.id;
+  await axios.post(
+    `https://api.spotify.com/v1/playlists/${spotifyPlaylistId}/tracks`,
+    { uris: playlistDoc.tracks.map((t) => t.uri) },
+    { headers }
+  );
+
+  playlistDoc.spotifyPlaylistId = spotifyPlaylistId;
+  playlistDoc.spotifyPlaylistUrl = createResp.data.external_urls.spotify;
+  await playlistDoc.save();
+
+  return res.status(200).json({ ok: true, spotifyPlaylistUrl: playlistDoc.spotifyPlaylistUrl });
+};

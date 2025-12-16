@@ -19,6 +19,12 @@ import BEclicktxt from "../code/be-clicktxt.txt?raw";
 import Neuroverse from "../assets/Neuroverse.svg";
 import NeuroHero from "../assets/NeuroHero.svg";
 import Neuro1 from "../assets/Neuro1.svg";
+import Neuro2 from "../assets/NEURO2.svg";
+import Neuro3 from "../assets/NEURO3.svg";
+import Neuro4 from "../assets/NEURO4.svg";
+import Neuro5 from "../assets/NEURO5.svg";
+import Neuro6 from "../assets/NEURO6.svg";
+
 import NeuMemory from "../code/Neu-Memory.txt?raw";
 import NeuWASD from "../code/Neu-WASD.txt?raw";
 import NeuScript from "../code/Neu-script.txt?raw";
@@ -30,6 +36,15 @@ import Weather2 from "../assets/Weather2.svg";
 import WeatherHook from "../code/WeatherHook.txt?raw";
 
 import NP from "../assets/NP.svg";
+import NPhero from "../assets/NPhero.svg";
+import NP1 from "../assets/NP1.svg";
+import NP2 from "../assets/NP2.svg";
+import NPmp4 from "../assets/NPvideo.mp4";
+import npspotify from "../code/npspoti.txt?raw";
+import np2 from "../code/np2.txt?raw";
+import np3 from "../code/np3.txt?raw";
+import np4 from "../code/np4.txt?raw";
+
 
 const projects = [
   {
@@ -169,7 +184,7 @@ const projects = [
 
     thumbnail: Neuroverse,
     heroImage: NeuroHero,
-    gallery: [Neuro1],
+    gallery: [Neuro1, Neuro2, Neuro3, Neuro4, Neuro5, Neuro6],
 
     overview: [
       "2025 09-12 Personal Project",
@@ -285,12 +300,16 @@ const projects = [
     githubUrl: "https://github.com/4444224444/musicfeed",
 
     thumbnail: NP,
-    heroImage: "/images/baro-hero.png",
-    gallery: ["/images/baro-1.png", "/images/baro-2.png", "/images/baro-3.png"],
+    heroImage: NPhero,
+    gallery: [NP1, NP2],
+    video: {
+    src: NPmp4,
+    poster: NPhero,
+    },
 
     overview: [
-      "모바일 환경에서 빠르게 주문할 수 있는 푸드 오더링 웹 서비스.",
-      "메인 화면에서 카테고리, 추천 메뉴, 최근 주문을 한 번에 확인하도록 정보 구조를 설계함.",
+      "2025 09-12 Personal Project",
+      "Spotify API 연동 음악 서비스 웹사이트",
     ],
 
     techSummary: [
@@ -301,21 +320,53 @@ const projects = [
     ],
 
     introduce: [
-      "사용자가 '주문 과정이 길지 않을 것'이라는 확신을 가질 수 있도록 화면 전환을 최소화했다.",
-      "CTA 버튼의 위치, 색 대비를 조정해 첫 진입 화면에서 바로 주문 플로우가 보이도록 구성했다.",
+      "Spotify 개발자 대시보드 API를 활용하여 실시간으로 사용자의 현재 재생 중인 음악을 표시하고, 웹 내에서 친구의 음악 기록까지 조회할 수 있는 음악 공유형 웹사이트입니다. 서버는 미들웨어와 컨트롤러 구조로 분리 설계하였으며, Thunder Client를 통해 API 요청 및 응답 과정을 직접 검증하며 데이터 흐름을 이해했습니다. 또한 MongoDB를 이용한 사용자 데이터 관리를 구현하면서 프론트엔드와 백엔드 간의 연결 구조와 API 통신 과정을 체계적으로 익혔습니다. 이번 프로젝트를 통해 실제 서비스형 웹의 구조와 데이터 처리 방식을 경험하며, 백엔드 연동과 API 활용 능력을 한 단계 발전시킬 수 있었습니다.",
     ],
 
     codeReview: [
       {
-        image: "/images/baro-code-1.png",
-        title: "상태 관리 구조 리팩토링",
-        text: "초기에는 페이지별로 중복 상태가 많았으나, 공통 훅과 컨텍스트를 도입해 주문 플로우 상태를 한 곳에서 관리하도록 리팩토링했다.",
+        title: "01 OAuth 콜백에서 토큰 발급 + DB 저장",
+        summary: "이 프로젝트의 서비스 계정과 Spotify 계정 연동”을 완료하는 구간",
+        list: [
+    "- loginWithSpotify에서 넘어온 code를 이용해 Spotify에 요청하고, access_token / refresh_token을 발급",
+    "- 발급받은 토큰을 해당 유저(User) 문서에 저장",
+    "- 저장 후 서비스 메인(/)으로 리다이렉트",
+    "- 서비스 계정과 스포티파이 계정 연동 완료",
+  ],
+        code: npspotify,
       },
+
       {
-        image: "/images/baro-code-2.png",
-        title: "컴포넌트 분리 기준",
-        text: "UI 조각 단위가 아닌, 실제 사용자 액션 단위로 컴포넌트를 분리해 재사용성과 가독성을 함께 챙겼다.",
+        title: "02 getRecentTracks: 최근 재생 목록 가져오기",
+        summary: "Spotify의 recently-played API를 호출해 최근 들은 곡 목록을 만들었습니다 웹페이지에서 최근 재생한 곡 20곡을 recent 페이지에서 확인할 수 있습니다",
+        list: [
+    "- 응답을 그대로 넘기지 않고, 프론트에 필요한 형태로 map 해서 id/name/artists/albumCover 같은 가벼운 데이터 구조로 정리해 내려주기"
+  ],
+        code: np2,
       },
+
+      {
+        title: "03 getCurrentlyPlaying: 현재 재생 중인 곡 가져오기",
+        summary: "지금 재생 중인 트랙을 가져오는 구간",
+        list: [
+    "- 재생 중이 아니면 is_playing:false로 내려서 “현재 재생 없음” UI를 띄움",
+    "- 재생 중이면 곡명/아티스트/앨범커버만 골라 내려주기"
+  ],
+        code: np3,
+      },
+
+      {
+        title: "04 생성된 추천을 실제 Spotify 플레이리스트로 발행하기",
+        summary: "서버에 저장해둔 추천 결과를 가져와서 진짜 Spotify 플레이리스트로 발행",
+        list: [
+    "- 내 Spotify 사용자 id 조회",
+    "- Spotify 플레이리스트 생성",
+    "- 트랙 uri들을 플레이리스트에 추가",
+    "- 생성된 Spotify 플레이리스트 id/url을 DB에 저장",
+  ],
+        code: np4,
+      },
+
     ],
   },
 

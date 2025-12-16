@@ -95,10 +95,9 @@ export default function ContactPage() {
             </dl>
           </section>
 
-          {/* ===== RIGHT: CONTACT FORM ===== */}
+
           <section className="contact-page__right">
             <form className="contact-page__form" onSubmit={handleSubmit}>
-              {/* 이름 + 이메일 가로 배치 */}
               <div className="contact-page__row contact-page__row--two">
                 <div className="contact-page__field">
                   <label htmlFor="name" className="contact-page__label">
