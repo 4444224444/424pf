@@ -39,7 +39,6 @@ import NP from "../assets/NP.svg";
 import NPhero from "../assets/NPhero.svg";
 import NP1 from "../assets/NP1.svg";
 import NP2 from "../assets/NP2.svg";
-import NPmp4 from "../assets/NPvideo.mp4";
 import npspotify from "../code/npspoti.txt?raw";
 import np2 from "../code/np2.txt?raw";
 import np3 from "../code/np3.txt?raw";
