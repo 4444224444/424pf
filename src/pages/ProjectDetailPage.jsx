@@ -135,21 +135,24 @@ useEffect(() => {
             </section>
           )}
 
-          {project.video && (
+
+{project.youtubeId && (
   <section className="project-detail__section">
     <h2>Demo Video</h2>
 
     <div className="project-detail__video">
-      <video
-        src={project.video.src}
-        poster={project.video.poster}
-        controls
-        playsInline
-        preload="metadata"
-      />
+      <div className="project-detail__video-embed">
+        <iframe
+          src={`https://www.youtube.com/embed/${project.youtubeId}`}
+          title={`${title} demo video`}
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowFullScreen
+        />
+      </div>
     </div>
   </section>
 )}
+
 
 
 

@@ -302,6 +302,8 @@ const projects = [
     heroImage: NPhero,
     gallery: [NP1, NP2],
 
+    youtubeId: "X7_jvthopOM",
+
     overview: [
       "2025 09-12 Personal Project",
       "Spotify API 연동 음악 서비스 웹사이트",
