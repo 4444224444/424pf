@@ -301,7 +301,6 @@ const projects = [
     thumbnail: NP,
     heroImage: NPhero,
     gallery: [NP1, NP2],
-    video: { src: "/assets/NPvideo.mp4", poster: NP1 },
 
     overview: [
       "2025 09-12 Personal Project",
